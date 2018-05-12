@@ -1,0 +1,22 @@
+{
+  "name": "silly-pubsub",
+  "version": "1.0.0",
+  "description": "Simple trivial message subscription and publish utility",
+  "main": "src/pubsub.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doomfalc/silly-pubsub.git"
+  },
+  "keywords": [
+    "pubsub"
+  ],
+  "author": "doomFalc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doomfalc/silly-pubsub/issues"
+  },
+  "homepage": "https://github.com/doomfalc/silly-pubsub#readme"
+}
