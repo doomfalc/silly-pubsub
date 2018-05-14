@@ -5,7 +5,7 @@ Simple trivial message subscription and publish utility
 ## Use
 
 ```js
-const messages = require("silly-pubsub");
+const MessageHandler = require("../src/pubsub.js");
 
 class Vendor {
     constructor(messageHandler) {
