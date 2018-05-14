@@ -14,14 +14,24 @@ class Vendor {
 }
 
 class Customer {
+    constructor() {
+        this.purchaseEvent = null;
+    }
     hopeForSnes(messageHandler) {
-        messageHandler.subscribe("snes", content => {
+        this.purchaseEvent = messageHandler.subscribe("snes", content => {
             this.say("Vendor says:", content);
             this.say("Place order!!!");
         });
     }
     say(...message) {
         console.log("Customer -", ...message);
+    }
+    buySnes() {
+        this.say("Alright, I'm done.");
+        // Now that we've bought a SNES, we don't want to get vendor notifications anymore.
+        if (this.purchaseEvent) {
+            this.purchaseEvent.done();
+        }
     }
 }
 
@@ -30,4 +40,7 @@ const vendor = new Vendor(pubSub);
 const customer = new Customer();
 
 customer.hopeForSnes(pubSub);
+vendor.restock();
+customer.buySnes();
+// Here, we shouldn't get any more notification.
 vendor.restock();

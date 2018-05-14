@@ -5,9 +5,13 @@ module.exports = class MessageHandler {
 
     subscribe(eventName, listener) {
         if (!this.subs[eventName]) {
-            this.subs[eventName] = [];
+            this.subs[eventName] = new Map();
         }
-        this.subs[eventName].push(listener);
+        this.subs[eventName].set(listener, listener);
+
+        return {
+            done: () => this.subs[eventName].delete(listener)
+        };
     }
 
     publish(eventName, ...args) {
