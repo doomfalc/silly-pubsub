@@ -7,14 +7,14 @@ Simple trivial message subscription and publish utility
 ### Create a new MessageHandler
 
 ```js
-const MessageHandler = require("silly-pubsub");
-const messageHandler = new MessageHandler();
+const PubSub = require("silly-pubsub");
+const pubSub = new PubSub();
 ```
 
 ### Subscribe to an event
 
 ```js
-messageHandler.subscribe("some-event-name", (...args) => {
+pubSub.subscribe("some-event-name", (...args) => {
     // do something
 });
 ```
@@ -23,7 +23,7 @@ messageHandler.subscribe("some-event-name", (...args) => {
 
 ```js
 // subscribe returns an object that allows event termination
-const event = messageHandler.subscribe("some-event-name", (...args) => {
+const event = pubSub.subscribe("some-event-name", (...args) => {
     // do something
 });
 // Terminate
@@ -33,24 +33,24 @@ event.done();
 ### Trigger an event
 
 ```js
-messageHandler.publish("some-event-name");
+pubSub.publish("some-event-name");
 // alternatively, pass any desired argument to access them in the subscribed functions.
-messageHandler.publish("some-event-name", { whatever: true });
+pubSub.publish("some-event-name", { whatever: true });
 ```
 
 
 ## Full example
 
 ```js
-const MessageHandler = require("silly-pubsub");
+const PubSub = require("silly-pubsub");
 
 class Vendor {
-    constructor(messageHandler) {
-        this.messageHandler = messageHandler;
+    constructor(pubSub) {
+        this.pubSub = pubSub;
     }
     restock() {
         this.say("We just restocked some SNES, hurray!");
-        this.messageHandler.publish("snes", "SNES classics are back in stock!");
+        this.pubSub.publish("snes", "SNES classics are back in stock!");
     }
     say(message) {
         console.log("Vendor -", message);
@@ -61,8 +61,8 @@ class Customer {
     constructor() {
         this.purchaseEvent = null;
     }
-    hopeForSnes(messageHandler) {
-        this.purchaseEvent = messageHandler.subscribe("snes", content => {
+    hopeForSnes(pubSub) {
+        this.purchaseEvent = pubSub.subscribe("snes", content => {
             this.say("Vendor says:", content);
             this.say("Place order!!!");
         });
@@ -79,7 +79,7 @@ class Customer {
     }
 }
 
-const pubSub = new MessageHandler();
+const pubSub = new PubSub();
 const vendor = new Vendor(pubSub);
 const customer = new Customer();
 

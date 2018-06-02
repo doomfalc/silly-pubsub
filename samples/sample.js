@@ -1,12 +1,12 @@
-const MessageHandler = require("../src/pubsub.js");
+const PubSub = require("../src/pubsub.js");
 
 class Vendor {
-    constructor(messageHandler) {
-        this.messageHandler = messageHandler;
+    constructor(pubSub) {
+        this.pubSub = pubSub;
     }
     restock() {
         this.say("We just restocked some SNES, hurray!");
-        this.messageHandler.publish("snes", "SNES classics are back in stock!");
+        this.pubSub.publish("snes", "SNES classics are back in stock!");
     }
     say(message) {
         console.log("Vendor -", message);
@@ -17,8 +17,8 @@ class Customer {
     constructor() {
         this.purchaseEvent = null;
     }
-    hopeForSnes(messageHandler) {
-        this.purchaseEvent = messageHandler.subscribe("snes", content => {
+    hopeForSnes(pubSub) {
+        this.purchaseEvent = pubSub.subscribe("snes", content => {
             this.say("Vendor says:", content);
             this.say("Place order!!!");
         });
@@ -35,7 +35,7 @@ class Customer {
     }
 }
 
-const pubSub = new MessageHandler();
+const pubSub = new PubSub();
 const vendor = new Vendor(pubSub);
 const customer = new Customer();
 

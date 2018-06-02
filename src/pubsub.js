@@ -1,4 +1,4 @@
-module.exports = class MessageHandler {
+module.exports = class {
     constructor() {
         this.subs = {};
     }
