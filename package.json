@@ -1,6 +1,6 @@
 {
   "name": "silly-pubsub",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simple trivial message subscription and publish utility",
   "main": "src/pubsub.js",
   "scripts": {
