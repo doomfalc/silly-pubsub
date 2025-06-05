@@ -15,8 +15,11 @@ module.exports = class {
     }
 
     publish(eventName, ...args) {
+        const output = [];
         if (this.subs[eventName]) {
-            this.subs[eventName].forEach(listener => listener(...args));
+            this.subs[eventName].forEach(listener => output.push(listener(...args)));
         }
+
+        return output;
     }
 }
